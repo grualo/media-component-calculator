@@ -5,318 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laboratory Component Calculator</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      background: #f4f6f8;
-      color: #1f2933;
-    }
-
-    header {
-      background: #0f766e;
-      color: white;
-      padding: 24px 18px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    header p {
-      margin: 8px 0 0;
-      font-size: 15px;
-    }
-
-    main {
-      max-width: 1050px;
-      margin: 24px auto;
-      padding: 0 16px 40px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    }
-
-    h2 {
-      margin-top: 0;
-      color: #0f766e;
-      font-size: 21px;
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 11px;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-      font-size: 15px;
-    }
-
-    input:focus, select:focus {
-      outline: 2px solid #5eead4;
-      border-color: #0f766e;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      align-items: end;
-    }
-
-    .formulation-bar {
-      display: grid;
-      grid-template-columns: minmax(260px, 1fr) auto auto auto auto auto auto auto auto;
-      gap: 8px;
-      align-items: end;
-    }
-
-    button {
-      background: #0f766e;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    button:hover {
-      background: #115e59;
-    }
-
-    .secondary {
-      background: #475569;
-    }
-
-    .secondary:hover {
-      background: #334155;
-    }
-
-    .danger {
-      background: #dc2626;
-    }
-
-    .danger:hover {
-      background: #b91c1c;
-    }
-
-    .outline {
-      background: white;
-      color: #0f766e;
-      border: 2px solid #0f766e;
-    }
-
-    .outline:hover {
-      background: #ecfeff;
-    }
-
-    .compact-btn {
-      width: auto;
-      min-width: 76px;
-      padding: 8px 12px;
-      font-size: 13px;
-      border-radius: 7px;
-      white-space: nowrap;
-    }
-
-    .full-row-center {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: center;
-      margin-top: 4px;
-    }
-
-    .full-row-center button {
-      width: min(420px, 100%);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 14px;
-      overflow-x: auto;
-    }
-
-    th, td {
-      border: 1px solid #e2e8f0;
-      padding: 10px;
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    th {
-      background: #ecfeff;
-      color: #134e4a;
-    }
-
-    tr:nth-child(even) {
-      background: #f8fafc;
-    }
-
-    .small-btn {
-      padding: 7px 10px;
-      font-size: 13px;
-      width: auto;
-      min-width: 78px;
-    }
-
-    .note {
-      background: #fffbeb;
-      border-left: 5px solid #f59e0b;
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .result-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .pill {
-      display: inline-block;
-      background: #ccfbf1;
-      color: #134e4a;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.62);
-      z-index: 1000;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .modal {
-      background: white;
-      width: min(980px, 100%);
-      margin: 30px auto;
-      border-radius: 16px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      background: #0f766e;
-      color: white;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: white;
-      font-size: 20px;
-    }
-
-    .modal-close {
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      width: auto;
-      padding: 6px 11px;
-      font-size: 20px;
-      line-height: 1;
-    }
-
-    .modal-close:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .modal-body {
-      padding: 20px;
-    }
-
-    .modal-actions {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin: 0; background: #f4f6f8; color: #1f2933; }
+    header { background: #0f766e; color: white; padding: 24px 18px; text-align: center; }
+    header h1 { margin: 0; font-size: 28px; }
+    header p { margin: 8px 0 0; font-size: 15px; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 16px 40px; }
+    .card { background: white; border-radius: 14px; padding: 20px; margin-bottom: 18px; box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+    h2 { margin-top: 0; color: #0f766e; font-size: 21px; }
+    label { font-weight: 600; display: block; margin-bottom: 6px; }
+    input, select, button { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 15px; }
+    input:focus, select:focus { outline: 2px solid #5eead4; border-color: #0f766e; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; align-items: end; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+    .toolbar .select-wrap { flex: 1 1 280px; }
+    button { background: #0f766e; color: white; border: none; cursor: pointer; font-weight: 700; }
+    button:hover { background: #115e59; }
+    .secondary { background: #475569; }
+    .secondary:hover { background: #334155; }
+    .danger { background: #dc2626; }
+    .danger:hover { background: #b91c1c; }
+    .outline { background: white; color: #0f766e; border: 2px solid #0f766e; }
+    .outline:hover { background: #ecfeff; }
+    .compact-btn { width: auto; min-width: 70px; padding: 8px 11px; font-size: 13px; white-space: nowrap; }
+    .drive-btn { background: #2563eb; }
+    .drive-btn:hover { background: #1d4ed8; }
+    .full-row-center { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 4px; }
+    .full-row-center button { width: min(420px, 100%); }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; vertical-align: middle; }
+    th { background: #ecfeff; color: #134e4a; }
+    tr:nth-child(even) { background: #f8fafc; }
+    .small-btn { padding: 7px 10px; font-size: 13px; width: auto; min-width: 78px; }
+    .note { background: #fffbeb; border-left: 5px solid #f59e0b; padding: 12px 14px; border-radius: 8px; font-size: 14px; line-height: 1.5; }
+    .status { background: #eff6ff; border-left: 5px solid #2563eb; padding: 10px 12px; border-radius: 8px; font-size: 14px; margin-top: 12px; }
+    .result-title { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .pill { display: inline-block; background: #ccfbf1; color: #134e4a; padding: 6px 10px; border-radius: 999px; font-weight: 700; font-size: 13px; }
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.62); z-index: 1000; padding: 20px; overflow-y: auto; }
+    .modal-backdrop.active { display: flex; align-items: flex-start; justify-content: center; }
+    .modal { background: white; width: min(980px, 100%); margin: 30px auto; border-radius: 16px; box-shadow: 0 20px 45px rgba(0,0,0,.25); overflow: hidden; }
+    .modal-header { background: #0f766e; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+    .modal-header h2 { margin: 0; color: white; font-size: 20px; }
+    .modal-close { background: transparent; color: white; border: 1px solid rgba(255,255,255,.55); width: auto; padding: 6px 11px; font-size: 20px; line-height: 1; }
+    .modal-body { padding: 20px; }
+    .modal-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 18px; }
     @media (max-width: 720px) {
-      .formulation-bar {
-        grid-template-columns: 1fr;
-      }
-
-      .compact-btn {
-        width: 100%;
-      }
+      header h1 { font-size: 23px; }
+      .toolbar { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .toolbar .select-wrap { grid-column: 1 / -1; }
+      .compact-btn { width: 100%; min-width: 0; }
+      .table-wrap { overflow-x: auto; }
+      table { min-width: 650px; }
     }
-
     @media print {
-      body {
-        background: white;
-      }
-
-      .no-print, .modal-backdrop {
-        display: none !important;
-      }
-
-      .card {
-        box-shadow: none;
-        border: 1px solid #ddd;
-      }
+      body { background: white; }
+      .no-print, .modal-backdrop { display: none !important; }
+      .card { box-shadow: none; border: 1px solid #ddd; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Laboratory Component Calculator</h1>
-    <p>Enter the final volume to calculate the required amount of each component.</p>
+    <p>Calculate formulation components and optionally synchronize them with Google Drive.</p>
   </header>
 
   <main>
     <section class="card no-print">
       <h2>1. Select a Formulation</h2>
-      <div class="formulation-bar">
-        <div>
+      <div class="toolbar">
+        <div class="select-wrap">
           <label for="presetSelect">Saved formulation</label>
-          <select id="presetSelect" onchange="loadSelectedRecipe()"></select>
+          <select id="presetSelect"></select>
         </div>
-        <button class="compact-btn" onclick="openNewRecipeModal()">New</button>
-        <button class="compact-btn outline" onclick="openEditRecipeModal()">Edit</button>
-        <button class="compact-btn danger" onclick="deleteRecipe()">Delete</button>
-        <button class="compact-btn secondary" onclick="exportRecipes()">Export</button>
-        <button class="compact-btn secondary" onclick="triggerImportRecipes()">Import</button>
-        <button class="compact-btn outline" onclick="downloadUpdatedHtml()">Save HTML</button>
-        <button class="compact-btn secondary" onclick="selectHtmlFileToUpdate()">Select HTML</button>
-        <button class="compact-btn" onclick="updateSelectedHtmlFile()">Update File</button>
-        <input id="importRecipesFile" type="file" accept=".json,application/json" style="display: none;" onchange="importRecipes(event)" />
+        <button class="compact-btn" type="button" onclick="openNewRecipeModal()">New</button>
+        <button class="compact-btn outline" type="button" onclick="openEditRecipeModal()">Edit</button>
+        <button class="compact-btn danger" type="button" onclick="deleteRecipe()">Delete</button>
+        <button class="compact-btn secondary" type="button" onclick="exportRecipes()">Export</button>
+        <button class="compact-btn secondary" type="button" onclick="triggerImportRecipes()">Import</button>
+        <button class="compact-btn outline" type="button" onclick="downloadUpdatedHtml()">Save HTML</button>
+        <button class="compact-btn drive-btn" type="button" onclick="openDriveSetupModal()">Drive Setup</button>
+        <button class="compact-btn drive-btn" type="button" onclick="saveRecipesToDrive()">Save to Drive</button>
+        <button class="compact-btn drive-btn" type="button" onclick="loadRecipesFromDrive()">Load from Drive</button>
+        <input id="importRecipesFile" type="file" accept=".json,application/json" hidden />
       </div>
+      <div class="status" id="driveStatus">Google Drive is not configured on this device.</div>
+      <p style="margin:10px 0 0;font-size:13px;color:#475569">
+        After Drive Setup is configured, saving or editing a formulation automatically updates the Google Drive backup.
+      </p>
     </section>
 
     <section class="card no-print">
@@ -334,10 +110,10 @@
           </select>
         </div>
         <div>
-          <button class="secondary" onclick="window.print()">Print / Save as PDF</button>
+          <button class="secondary" type="button" onclick="window.print()">Print / Save as PDF</button>
         </div>
         <div class="full-row-center">
-          <button onclick="calculateComponents()">Calculate Components</button>
+          <button type="button" onclick="calculateComponents()">Calculate Components</button>
         </div>
       </div>
     </section>
@@ -347,20 +123,20 @@
         <h2>Calculated Components</h2>
         <span class="pill" id="volumeLabel">Final volume: 100 mL</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Component</th>
-            <th>Required Amount</th>
-            <th>Original Basis</th>
-          </tr>
-        </thead>
-        <tbody id="resultsBody">
-          <tr>
-            <td colspan="3">No calculation yet.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Required Amount</th>
+              <th>Original Basis</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <tr><td colspan="3">No calculation yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
   </main>
 
@@ -368,7 +144,7 @@
     <div class="modal">
       <div class="modal-header">
         <h2 id="modalTitle">Create New Formulation</h2>
-        <button class="modal-close" onclick="closeRecipeModal()">×</button>
+        <button class="modal-close" type="button" onclick="closeRecipeModal()">×</button>
       </div>
       <div class="modal-body">
         <div class="grid">
@@ -383,27 +159,58 @@
         </div>
 
         <p class="note">
-          Enter the component requirement based on a reference volume. For example, if a recipe uses <strong>0.3 g per 100 mL</strong>, enter amount = <strong>0.3</strong>, unit = <strong>g</strong>, reference volume = <strong>100</strong>, reference unit = <strong>mL</strong>. Always follow the manufacturer’s recommended preparation instructions, concentration, storage conditions, and safety precautions when preparing commercial media, buffers, supplements, or reagents.
+          Enter each component based on a reference volume. For example, for <strong>0.3 g per 100 mL</strong>, enter amount = <strong>0.3</strong>, unit = <strong>g</strong>, reference volume = <strong>100</strong>, and reference unit = <strong>mL</strong>. Always follow the manufacturer’s recommended preparation instructions, concentration, storage conditions, and safety precautions.
         </p>
 
-        <table id="modalComponentsTable">
-          <thead>
-            <tr>
-              <th>Component</th>
-              <th>Amount</th>
-              <th>Unit</th>
-              <th>Reference Volume</th>
-              <th>Reference Unit</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="modalComponentsBody"></tbody>
-        </table>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Amount</th>
+                <th>Unit</th>
+                <th>Reference Volume</th>
+                <th>Reference Unit</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="modalComponentsBody"></tbody>
+          </table>
+        </div>
 
         <div class="modal-actions">
-          <button class="secondary" onclick="addModalComponentRow()">Add Component</button>
-          <button onclick="saveRecipeFromModal()">Save Formulation</button>
-          <button class="outline" onclick="closeRecipeModal()">Cancel</button>
+          <button class="secondary" type="button" onclick="addModalComponentRow()">Add Component</button>
+          <button type="button" onclick="saveRecipeFromModal()">Save Formulation</button>
+          <button class="outline" type="button" onclick="closeRecipeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="driveSetupModal">
+    <div class="modal" style="max-width:720px">
+      <div class="modal-header">
+        <h2>Google Drive Setup</h2>
+        <button class="modal-close" type="button" onclick="closeDriveSetupModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="note">
+          Paste the Google Apps Script web-app URL ending in <strong>/exec</strong> and the same access code placed in <strong>Code.gs</strong>. These settings are stored only in this browser.
+        </p>
+        <div class="grid">
+          <div style="grid-column:1/-1">
+            <label for="driveUrlInput">Apps Script web-app URL</label>
+            <input id="driveUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" />
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="driveKeyInput">Access code</label>
+            <input id="driveKeyInput" type="password" placeholder="Use the same code as ACCESS_KEY in Code.gs" />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" onclick="saveDriveSettings()">Save Settings</button>
+          <button class="danger" type="button" onclick="clearDriveSettings()">Clear Settings</button>
+          <button class="outline" type="button" onclick="closeDriveSetupModal()">Cancel</button>
         </div>
       </div>
     </div>
@@ -632,134 +439,136 @@
   </script>
 
   <script>
-    function getEmbeddedRecipes() {
-      const embeddedRecipes = document.getElementById("embeddedRecipes");
+    "use strict";
 
+    const RECIPES_STORAGE_KEY = "componentRecipes";
+    const LAST_SELECTED_RECIPE_KEY = "componentCalculatorLastSelectedRecipe";
+    const DRIVE_URL_STORAGE_KEY = "componentCalculatorDriveUrl";
+    const DRIVE_KEY_STORAGE_KEY = "componentCalculatorDriveKey";
+
+    let recipes = {};
+    let activeRecipeName = "";
+    let modalMode = "new";
+    let recipeNameBeingEdited = "";
+    let driveLoadScript = null;
+    let driveLoadTimer = null;
+
+    function parseEmbeddedRecipes() {
       try {
-        const parsedRecipes = JSON.parse(embeddedRecipes.textContent);
-        return Object.keys(parsedRecipes).length > 0 ? parsedRecipes : {};
+        return JSON.parse(document.getElementById("embeddedRecipes").textContent);
       } catch (error) {
-        alert("There is an error in the embedded formulation list.");
+        console.error(error);
         return {};
       }
     }
 
     function getSavedRecipes() {
       try {
-        return JSON.parse(localStorage.getItem(RECIPES_STORAGE_KEY)) || {};
+        const parsed = JSON.parse(localStorage.getItem(RECIPES_STORAGE_KEY));
+        return isValidRecipeData(parsed) ? parsed : {};
       } catch (error) {
         return {};
       }
     }
 
-    const RECIPES_STORAGE_KEY = "componentRecipes";
-    const LAST_SELECTED_RECIPE_KEY = "componentCalculatorLastSelectedRecipe";
+    function saveRecipesLocally() {
+      localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
+    }
 
-    const defaultRecipes = getEmbeddedRecipes();
-    let recipes = { ...defaultRecipes, ...getSavedRecipes() };
-    localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
-
-    let activeRecipeName = "";
-    let modalMode = "new";
-    let recipeNameBeingEdited = "";
-    let selectedHtmlFileHandle = null;
+    function initializeRecipes() {
+      const embedded = parseEmbeddedRecipes();
+      const saved = getSavedRecipes();
+      recipes = { ...embedded, ...saved };
+      saveRecipesLocally();
+      populateRecipeDropdown(localStorage.getItem(LAST_SELECTED_RECIPE_KEY));
+      updateDriveStatus();
+    }
 
     function convertToMl(volume, unit) {
-      if (unit === "L") return volume * 1000;
-      return volume;
+      return unit === "L" ? volume * 1000 : volume;
     }
 
     function formatNumber(value) {
-      if (Number.isInteger(value)) return value.toString();
-      return parseFloat(value.toFixed(4)).toString();
+      if (!Number.isFinite(value)) return "";
+      if (Number.isInteger(value)) return String(value);
+      return String(parseFloat(value.toFixed(4)));
     }
 
-    function populateRecipeDropdown(selectedRecipe = null) {
-      const select = document.getElementById("presetSelect");
-      const previouslySelected = selectedRecipe || localStorage.getItem(LAST_SELECTED_RECIPE_KEY) || activeRecipeName || select.value;
-      const recipeNames = Object.keys(recipes).sort();
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
+    function populateRecipeDropdown(preferredName = null) {
+      const select = document.getElementById("presetSelect");
+      const names = Object.keys(recipes).sort((a, b) => a.localeCompare(b));
+      const candidate = preferredName || activeRecipeName || select.value;
       select.innerHTML = "";
 
-      recipeNames.forEach(recipeName => {
+      for (const name of names) {
         const option = document.createElement("option");
-        option.value = recipeName;
-        option.textContent = recipeName;
+        option.value = name;
+        option.textContent = name;
         select.appendChild(option);
-      });
+      }
 
-      if (recipeNames.length === 0) {
+      if (names.length === 0) {
         activeRecipeName = "";
-        localStorage.removeItem(LAST_SELECTED_RECIPE_KEY);
-        calculateComponents();
+        document.getElementById("resultsBody").innerHTML =
+          '<tr><td colspan="3">No formulations are available.</td></tr>';
         return;
       }
 
-      if (previouslySelected && recipes[previouslySelected]) {
-        select.value = previouslySelected;
-      } else {
-        select.value = recipeNames[0];
-      }
-
-      activeRecipeName = select.value;
-      localStorage.setItem(LAST_SELECTED_RECIPE_KEY, activeRecipeName);
-      calculateComponents();
+      select.value = candidate && recipes[candidate] ? candidate : names[0];
+      loadSelectedRecipe();
     }
 
     function loadSelectedRecipe() {
-      const select = document.getElementById("presetSelect");
-      const selected = select.value;
-
-      if (!recipes[selected]) {
-        populateRecipeDropdown();
-        return;
-      }
-
+      const selected = document.getElementById("presetSelect").value;
+      if (!recipes[selected]) return;
       activeRecipeName = selected;
-      localStorage.setItem(LAST_SELECTED_RECIPE_KEY, activeRecipeName);
+      localStorage.setItem(LAST_SELECTED_RECIPE_KEY, selected);
       calculateComponents();
     }
 
-    function getSelectedRecipeComponents() {
-      const recipe = recipes[activeRecipeName];
-      return recipe ? recipe.components : [];
-    }
-
     function calculateComponents() {
-      const finalVolume = parseFloat(document.getElementById("finalVolume").value);
+      const finalVolume = Number(document.getElementById("finalVolume").value);
       const finalUnit = document.getElementById("volumeUnit").value;
       const resultsBody = document.getElementById("resultsBody");
       const volumeLabel = document.getElementById("volumeLabel");
 
       resultsBody.innerHTML = "";
 
-      if (isNaN(finalVolume) || finalVolume <= 0) {
-        resultsBody.innerHTML = `<tr><td colspan="3">Please enter a valid final volume.</td></tr>`;
+      if (!Number.isFinite(finalVolume) || finalVolume <= 0) {
+        resultsBody.innerHTML = '<tr><td colspan="3">Enter a valid final volume.</td></tr>';
         return;
       }
 
       volumeLabel.textContent = `Final volume: ${formatNumber(finalVolume)} ${finalUnit}`;
+      const recipe = recipes[activeRecipeName];
 
-      const finalVolumeMl = convertToMl(finalVolume, finalUnit);
-      const components = getSelectedRecipeComponents();
-
-      if (components.length === 0) {
-        resultsBody.innerHTML = `<tr><td colspan="3">Please create or select a formulation first.</td></tr>`;
+      if (!recipe || !Array.isArray(recipe.components) || recipe.components.length === 0) {
+        resultsBody.innerHTML = '<tr><td colspan="3">Select or create a formulation.</td></tr>';
         return;
       }
 
-      components.forEach(component => {
+      const finalVolumeMl = convertToMl(finalVolume, finalUnit);
+
+      for (const component of recipe.components) {
         const referenceVolumeMl = convertToMl(component.referenceVolume, component.referenceUnit);
         const requiredAmount = component.amount * (finalVolumeMl / referenceVolumeMl);
-
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${component.name}</td>
-          <td><strong>${formatNumber(requiredAmount)} ${component.unit}</strong></td>
-          <td>${component.amount} ${component.unit} per ${component.referenceVolume} ${component.referenceUnit}</td>
+          <td>${escapeHtml(component.name)}</td>
+          <td><strong>${formatNumber(requiredAmount)} ${escapeHtml(component.unit)}</strong></td>
+          <td>${formatNumber(component.amount)} ${escapeHtml(component.unit)} per ${formatNumber(component.referenceVolume)} ${escapeHtml(component.referenceUnit)}</td>
         `;
         resultsBody.appendChild(row);
-      });
+      }
     }
 
     function openNewRecipeModal() {
@@ -779,7 +588,7 @@
       const recipe = recipes[selected];
 
       if (!recipe) {
-        alert("Please select a formulation to edit.");
+        alert("Select a formulation to edit.");
         return;
       }
 
@@ -789,9 +598,12 @@
       document.getElementById("modalModeLabel").value = "Editing existing formulation";
       document.getElementById("modalRecipeName").value = recipe.name;
       document.getElementById("modalComponentsBody").innerHTML = "";
-      recipe.components.forEach(component => addModalComponentRow(component));
+
+      for (const component of recipe.components) {
+        addModalComponentRow(component);
+      }
+
       document.getElementById("recipeModal").classList.add("active");
-      document.getElementById("modalRecipeName").focus();
     }
 
     function closeRecipeModal() {
@@ -799,55 +611,42 @@
     }
 
     function addModalComponentRow(component = {}) {
-      const body = document.getElementById("modalComponentsBody");
       const row = document.createElement("tr");
-
       row.innerHTML = `
-        <td><input type="text" value="${component.name || ""}" placeholder="Example: NaCl" /></td>
-        <td><input type="number" min="0" step="0.0001" value="${component.amount ?? ""}" placeholder="Amount" /></td>
+        <td><input data-field="name" type="text" value="${escapeHtml(component.name || "")}" placeholder="Example: NaCl"></td>
+        <td><input data-field="amount" type="number" min="0" step="any" value="${component.amount ?? ""}" placeholder="Amount"></td>
         <td>
-          <select>
-            <option value="g" ${component.unit === "g" ? "selected" : ""}>g</option>
-            <option value="mg" ${component.unit === "mg" ? "selected" : ""}>mg</option>
-            <option value="µg" ${component.unit === "µg" ? "selected" : ""}>µg</option>
-            <option value="mL" ${component.unit === "mL" ? "selected" : ""}>mL</option>
-            <option value="µL" ${component.unit === "µL" ? "selected" : ""}>µL</option>
-            <option value="drops" ${component.unit === "drops" ? "selected" : ""}>drops</option>
+          <select data-field="unit">
+            ${["g","mg","µg","mL","µL","drops"].map(unit => `<option value="${unit}" ${component.unit === unit ? "selected" : ""}>${unit}</option>`).join("")}
           </select>
         </td>
-        <td><input type="number" min="0" step="0.01" value="${component.referenceVolume ?? 100}" /></td>
+        <td><input data-field="referenceVolume" type="number" min="0.000001" step="any" value="${component.referenceVolume ?? 100}"></td>
         <td>
-          <select>
-            <option value="mL" ${component.referenceUnit === "mL" ? "selected" : ""}>mL</option>
+          <select data-field="referenceUnit">
+            <option value="mL" ${component.referenceUnit !== "L" ? "selected" : ""}>mL</option>
             <option value="L" ${component.referenceUnit === "L" ? "selected" : ""}>L</option>
           </select>
         </td>
-        <td><button class="small-btn danger" onclick="removeModalRow(this)">Remove</button></td>
+        <td><button class="small-btn danger" type="button" onclick="this.closest('tr').remove()">Remove</button></td>
       `;
-
-      body.appendChild(row);
-    }
-
-    function removeModalRow(button) {
-      button.closest("tr").remove();
+      document.getElementById("modalComponentsBody").appendChild(row);
     }
 
     function getComponentsFromModal() {
-      const rows = document.querySelectorAll("#modalComponentsBody tr");
       const components = [];
+      const rows = document.querySelectorAll("#modalComponentsBody tr");
 
-      rows.forEach(row => {
-        const cells = row.querySelectorAll("td");
-        const name = cells[0].querySelector("input").value.trim();
-        const amount = parseFloat(cells[1].querySelector("input").value);
-        const unit = cells[2].querySelector("select").value;
-        const referenceVolume = parseFloat(cells[3].querySelector("input").value);
-        const referenceUnit = cells[4].querySelector("select").value;
+      for (const row of rows) {
+        const name = row.querySelector('[data-field="name"]').value.trim();
+        const amount = Number(row.querySelector('[data-field="amount"]').value);
+        const unit = row.querySelector('[data-field="unit"]').value;
+        const referenceVolume = Number(row.querySelector('[data-field="referenceVolume"]').value);
+        const referenceUnit = row.querySelector('[data-field="referenceUnit"]').value;
 
-        if (name && !isNaN(amount) && !isNaN(referenceVolume) && referenceVolume > 0) {
+        if (name && Number.isFinite(amount) && amount >= 0 && Number.isFinite(referenceVolume) && referenceVolume > 0) {
           components.push({ name, amount, unit, referenceVolume, referenceUnit });
         }
-      });
+      }
 
       return components;
     }
@@ -857,18 +656,17 @@
       const components = getComponentsFromModal();
 
       if (!recipeName) {
-        alert("Please enter a formulation name.");
+        alert("Enter a formulation name.");
         return;
       }
 
       if (components.length === 0) {
-        alert("Please add at least one valid component before saving.");
+        alert("Add at least one complete component.");
         return;
       }
 
-      if (modalMode === "new" && recipes[recipeName]) {
-        const overwrite = confirm("A formulation with this name already exists. Do you want to overwrite it?");
-        if (!overwrite) return;
+      if (modalMode === "new" && recipes[recipeName] && !confirm("This formulation already exists. Overwrite it?")) {
+        return;
       }
 
       if (modalMode === "edit" && recipeNameBeingEdited && recipeNameBeingEdited !== recipeName) {
@@ -876,32 +674,53 @@
       }
 
       recipes[recipeName] = { name: recipeName, components };
-      localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
+      saveRecipesLocally();
       closeRecipeModal();
       populateRecipeDropdown(recipeName);
-      alert("Formulation saved successfully.");
+
+      const driveSettings = getDriveSettings();
+      if (driveSettings.url && driveSettings.key) {
+        updateDriveStatus("Formulation saved locally. Saving automatically to Google Drive…");
+        saveRecipesToDrive();
+      } else {
+        updateDriveStatus("Formulation saved locally. Configure Drive Setup to enable automatic Google Drive saving.");
+      }
     }
 
     function deleteRecipe() {
       const selected = document.getElementById("presetSelect").value;
-
-      if (!selected) return;
-
-      if (!confirm(`Delete formulation: ${selected}?`)) return;
-
+      if (!selected || !recipes[selected]) return;
+      if (!confirm(`Delete "${selected}"?`)) return;
       delete recipes[selected];
-      localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
-
-      if (localStorage.getItem(LAST_SELECTED_RECIPE_KEY) === selected) {
-        localStorage.removeItem(LAST_SELECTED_RECIPE_KEY);
-      }
-
-      if (Object.keys(recipes).length === 0) {
-        recipes = { ...defaultRecipes };
-        localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
-      }
-
+      saveRecipesLocally();
+      localStorage.removeItem(LAST_SELECTED_RECIPE_KEY);
       populateRecipeDropdown();
+
+      const driveSettings = getDriveSettings();
+      if (driveSettings.url && driveSettings.key) {
+        updateDriveStatus("Formulation deleted locally. Updating Google Drive automatically…");
+        saveRecipesToDrive();
+      } else {
+        updateDriveStatus("Formulation deleted locally. Configure Drive Setup to synchronize deletions with Google Drive.");
+      }
+    }
+
+    function isValidRecipeData(data) {
+      if (!data || typeof data !== "object" || Array.isArray(data)) return false;
+      return Object.values(data).every(recipe =>
+        recipe &&
+        typeof recipe.name === "string" &&
+        Array.isArray(recipe.components) &&
+        recipe.components.every(component =>
+          component &&
+          typeof component.name === "string" &&
+          Number.isFinite(component.amount) &&
+          typeof component.unit === "string" &&
+          Number.isFinite(component.referenceVolume) &&
+          component.referenceVolume > 0 &&
+          typeof component.referenceUnit === "string"
+        )
+      );
     }
 
     function downloadBlob(blob, filename) {
@@ -910,152 +729,228 @@
       link.download = filename;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(link.href);
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
     }
 
     function exportRecipes() {
-      const data = JSON.stringify(recipes, null, 2);
-      const blob = new Blob([data], { type: "application/json" });
-      downloadBlob(blob, "component_formulations_backup.json");
+      downloadBlob(
+        new Blob([JSON.stringify(recipes, null, 2)], { type: "application/json" }),
+        "component_formulations_backup.json"
+      );
     }
 
     function triggerImportRecipes() {
       document.getElementById("importRecipesFile").click();
     }
 
-    function isValidRecipeData(data) {
-      if (!data || typeof data !== "object" || Array.isArray(data)) return false;
-
-      return Object.values(data).every(recipe => {
-        return recipe &&
-          typeof recipe.name === "string" &&
-          Array.isArray(recipe.components) &&
-          recipe.components.every(component =>
-            component &&
-            typeof component.name === "string" &&
-            typeof component.amount === "number" &&
-            typeof component.unit === "string" &&
-            typeof component.referenceVolume === "number" &&
-            typeof component.referenceUnit === "string"
-          );
-      });
-    }
-
     function importRecipes(event) {
-      const file = event.target.files[0];
+      const file = event.target.files?.[0];
       if (!file) return;
 
       const reader = new FileReader();
-
-      reader.onload = function() {
+      reader.onload = () => {
         try {
-          const importedRecipes = JSON.parse(reader.result);
-
-          if (!isValidRecipeData(importedRecipes)) {
-            alert("The selected file is not a valid formulation backup.");
-            return;
-          }
-
-          const replaceCurrent = confirm("Import formulations? Click OK to replace your current saved formulations. Click Cancel to keep the current formulations.");
-          if (!replaceCurrent) return;
-
-          recipes = importedRecipes;
-          localStorage.setItem(RECIPES_STORAGE_KEY, JSON.stringify(recipes));
+          const imported = JSON.parse(reader.result);
+          if (!isValidRecipeData(imported)) throw new Error("Invalid formulation data");
+          const replace = confirm("Replace current formulations with the imported backup?");
+          if (!replace) return;
+          recipes = imported;
+          saveRecipesLocally();
           populateRecipeDropdown();
-          alert("Formulations imported successfully.");
+          alert("Formulations imported.");
         } catch (error) {
-          alert("Could not read the selected file. Please choose a valid JSON backup file.");
+          alert("The selected file is not a valid formulation backup.");
         } finally {
           event.target.value = "";
         }
       };
-
       reader.readAsText(file);
     }
 
     function getUpdatedHtmlContent() {
-      const embeddedRecipes = document.getElementById("embeddedRecipes");
-      embeddedRecipes.textContent = JSON.stringify(recipes, null, 2);
+      document.getElementById("embeddedRecipes").textContent = JSON.stringify(recipes, null, 2);
       return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
     }
 
     function downloadUpdatedHtml() {
-      const htmlContent = getUpdatedHtmlContent();
-      const blob = new Blob([htmlContent], { type: "text/html" });
-      downloadBlob(blob, "component_calculator_updated.html");
+      downloadBlob(
+        new Blob([getUpdatedHtmlContent()], { type: "text/html" }),
+        "index.html"
+      );
     }
 
-    async function selectHtmlFileToUpdate() {
-      if (!window.showOpenFilePicker) {
-        alert("Direct file updating is not supported in this browser. Use Chrome or Microsoft Edge, or use the Save HTML button instead.");
+    function getDriveSettings() {
+      return {
+        url: (localStorage.getItem(DRIVE_URL_STORAGE_KEY) || "").trim(),
+        key: localStorage.getItem(DRIVE_KEY_STORAGE_KEY) || ""
+      };
+    }
+
+    function openDriveSetupModal() {
+      const settings = getDriveSettings();
+      document.getElementById("driveUrlInput").value = settings.url;
+      document.getElementById("driveKeyInput").value = settings.key;
+      document.getElementById("driveSetupModal").classList.add("active");
+    }
+
+    function closeDriveSetupModal() {
+      document.getElementById("driveSetupModal").classList.remove("active");
+    }
+
+    function saveDriveSettings() {
+      const url = document.getElementById("driveUrlInput").value.trim();
+      const key = document.getElementById("driveKeyInput").value;
+
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(url)) {
+        alert("Enter the deployed Apps Script URL ending in /exec.");
         return;
       }
 
+      if (!key) {
+        alert("Enter the same access code used in Code.gs.");
+        return;
+      }
+
+      localStorage.setItem(DRIVE_URL_STORAGE_KEY, url);
+      localStorage.setItem(DRIVE_KEY_STORAGE_KEY, key);
+      closeDriveSetupModal();
+      updateDriveStatus("Google Drive settings saved on this device.");
+    }
+
+    function clearDriveSettings() {
+      localStorage.removeItem(DRIVE_URL_STORAGE_KEY);
+      localStorage.removeItem(DRIVE_KEY_STORAGE_KEY);
+      document.getElementById("driveUrlInput").value = "";
+      document.getElementById("driveKeyInput").value = "";
+      closeDriveSetupModal();
+      updateDriveStatus("Google Drive settings cleared.");
+    }
+
+    function updateDriveStatus(message = "") {
+      const status = document.getElementById("driveStatus");
+      const settings = getDriveSettings();
+      if (message) {
+        status.textContent = message;
+      } else if (settings.url && settings.key) {
+        status.textContent = "Google Drive is configured. New and edited formulations will be saved to Drive automatically.";
+      } else {
+        status.textContent = "Google Drive is not configured on this device.";
+      }
+    }
+
+    async function saveRecipesToDrive() {
+      const settings = getDriveSettings();
+      if (!settings.url || !settings.key) {
+        openDriveSetupModal();
+        return;
+      }
+
+      const body = new URLSearchParams();
+      body.set("action", "save");
+      body.set("key", settings.key);
+      body.set("data", JSON.stringify(recipes));
+
+      updateDriveStatus("Sending formulations to Google Drive…");
+
       try {
-        const [fileHandle] = await window.showOpenFilePicker({
-          types: [
-            {
-              description: "HTML files",
-              accept: {
-                "text/html": [".html", ".htm"]
-              }
-            }
-          ],
-          multiple: false
+        await fetch(settings.url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body
         });
-
-        selectedHtmlFileHandle = fileHandle;
-        alert(`Selected file: ${fileHandle.name}
-
-You can now click Update File to overwrite it with the current saved formulations.`);
+        updateDriveStatus("Save request sent. Use “Load from Drive” to verify the saved data.");
       } catch (error) {
-        if (error.name !== "AbortError") {
-          alert("Could not select the HTML file.");
-        }
+        console.error(error);
+        updateDriveStatus("Could not send the formulations to Google Drive.");
       }
     }
 
-    async function updateSelectedHtmlFile() {
-      if (!window.showOpenFilePicker || !window.FileSystemWritableFileStream) {
-        alert("Direct file updating is not supported in this browser. Use Chrome or Microsoft Edge, or use the Save HTML button instead.");
-        return;
-      }
-
-      if (!selectedHtmlFileHandle) {
-        alert("Please click Select HTML first and choose the HTML file you want to update.");
-        return;
-      }
-
-      const confirmUpdate = confirm(`This will overwrite the selected file: ${selectedHtmlFileHandle.name}
-
-Continue?`);
-      if (!confirmUpdate) return;
-
-      try {
-        const htmlContent = getUpdatedHtmlContent();
-        const writable = await selectedHtmlFileHandle.createWritable();
-        await writable.write(htmlContent);
-        await writable.close();
-        alert("HTML file updated successfully.");
-      } catch (error) {
-        alert("The file could not be updated. Please make sure you allowed file access, then try again. You can also use Save HTML as a fallback.");
-      }
+    function cleanupDriveLoad() {
+      if (driveLoadTimer) clearTimeout(driveLoadTimer);
+      driveLoadTimer = null;
+      if (driveLoadScript) driveLoadScript.remove();
+      driveLoadScript = null;
     }
 
+    window.receiveDriveRecipes = function(response) {
+      cleanupDriveLoad();
+
+      if (!response || !response.ok) {
+        updateDriveStatus(response?.message || "Could not load formulations from Google Drive.");
+        return;
+      }
+
+      if (!isValidRecipeData(response.recipes)) {
+        updateDriveStatus("Google Drive returned invalid formulation data.");
+        return;
+      }
+
+      const replace = confirm("Replace the formulations on this device with the Google Drive copy?");
+      if (!replace) {
+        updateDriveStatus("Google Drive data loaded but not applied.");
+        return;
+      }
+
+      recipes = response.recipes;
+      saveRecipesLocally();
+      populateRecipeDropdown();
+      const savedAt = response.savedAt ? new Date(response.savedAt).toLocaleString() : "unknown time";
+      updateDriveStatus(`Loaded from Google Drive. Last cloud save: ${savedAt}.`);
+    };
+
+    function loadRecipesFromDrive() {
+      const settings = getDriveSettings();
+      if (!settings.url || !settings.key) {
+        openDriveSetupModal();
+        return;
+      }
+
+      cleanupDriveLoad();
+      updateDriveStatus("Loading formulations from Google Drive…");
+
+      const url = new URL(settings.url);
+      url.searchParams.set("action", "load");
+      url.searchParams.set("key", settings.key);
+      url.searchParams.set("callback", "receiveDriveRecipes");
+      url.searchParams.set("_", Date.now());
+
+      driveLoadScript = document.createElement("script");
+      driveLoadScript.src = url.toString();
+      driveLoadScript.onerror = () => {
+        cleanupDriveLoad();
+        updateDriveStatus("Could not connect to the Google Drive service.");
+      };
+      document.body.appendChild(driveLoadScript);
+
+      driveLoadTimer = setTimeout(() => {
+        cleanupDriveLoad();
+        updateDriveStatus("Google Drive did not respond. Check the web-app URL, access code, and deployment permissions.");
+      }, 15000);
+    }
+
+    document.getElementById("presetSelect").addEventListener("change", loadSelectedRecipe);
     document.getElementById("finalVolume").addEventListener("input", calculateComponents);
     document.getElementById("volumeUnit").addEventListener("change", calculateComponents);
-    document.getElementById("presetSelect").addEventListener("change", loadSelectedRecipe);
+    document.getElementById("importRecipesFile").addEventListener("change", importRecipes);
 
-    document.getElementById("recipeModal").addEventListener("click", function(event) {
-      if (event.target === this) closeRecipeModal();
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeRecipeModal();
+        closeDriveSetupModal();
+      }
     });
 
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") closeRecipeModal();
-    });
+    for (const modalId of ["recipeModal", "driveSetupModal"]) {
+      document.getElementById(modalId).addEventListener("click", event => {
+        if (event.target.id === modalId) {
+          event.target.classList.remove("active");
+        }
+      });
+    }
 
-    populateRecipeDropdown();
+    initializeRecipes();
   </script>
 </body>
 </html>
